@@ -1,0 +1,136 @@
+:root {
+	--main-font: 'Libre Franklin', sans-serif;
+	--second-font: 'Merriweather', serif;
+}
+
+body {
+	font-family: var(--main-font);
+	box-sizing: border-box;
+	font-size: 18px;
+}
+
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+.wrapper {
+	display: grid;
+	grid-gap: 50px;
+	grid-template-columns: 3fr 2fr auto;
+	grid-template-rows: auto auto auto;
+	grid-template-areas: 
+		"clues puzzle puzzle"
+		"clues notes date"
+		"footer footer footer";
+}
+
+.clues {
+	grid-area: clues;
+	/* tried with css grid and flexbox first but the containing ul element (important for proper semantic mark-up) created big gaps in the columns and would not flow naturally from one column to the next */
+	column-count: 3;
+	column-width: 33.3%;
+}
+
+.clues li {
+	position: relative;
+	padding-left: 20px;
+	margin-bottom: 3px;
+}
+
+.clues li:last-of-type {
+	margin-bottom: 0;
+}
+
+.clues li:before {
+	content: "1";
+	position: absolute;
+	left: 0;
+	font-size: 1.1rem;
+	font-weight: bold;
+}
+
+.clues__across,
+.clues__down {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.clues__heading {
+	text-transform: uppercase;
+	font-size: 1rem;
+	text-align: center;
+}
+
+.puzzle {
+	grid-area: puzzle;
+	display: grid;
+	grid-template-columns: repeat(15, minmax(20px, 1fr));
+	grid-template-rows: repeat(15, minmax(20px, 1fr));
+}
+
+.puzzle > div {
+	/*height: 50px;
+	width: 50px;*/
+	border: 1px solid black;
+}
+
+.puzzle__credits {
+	grid-column: 1 / -1;
+}
+
+.notes {
+	display: grid;
+
+	/*grid-template-rows: 1fr 1fr 1fr 1fr;*/
+}
+
+.notes__heading {
+	margin: 0;
+}
+
+.date {
+	text-align: center;
+	font-family: var(--second-font);
+	line-height: 1;
+	grid-row: 1 / -1;
+	/*grid-column: 1 / -1;*/
+}
+
+.date__month {
+	text-transform: uppercase;
+	font-size: 1.3rem;
+}
+
+.date__number {
+	font-size: 5rem;
+}
+
+.date__weekday {
+	text-transform: lowercase;
+	font-size: 1.3rem;
+}
+
+.footer {
+	grid-area: footer;
+}
+
+.footer:before {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 1px;
+	background: black;
+	margin-bottom: 5px;
+}
+
+@media all and (max-width: 1024px) {
+	.wrapper {
+		grid-template-areas: 
+			"puzzle puzzle puzzle"
+			"clues clues clues"
+			"notes notes date"
+			"footer footer footer";
+	}
+}
